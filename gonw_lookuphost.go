@@ -35,4 +35,5 @@ func main() {
 
 	fmt.Println("Cname:", cname)
 	os.Exit(0)
+
 }
