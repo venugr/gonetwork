@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+</head>
+<body>
+
+<h1>The meaning of life: {{.}}</h1>
+
+<p>{{template "polarbear"}}</p>
+
+<h1>
+{{template "my_template_text"}}
+</h1>
+
+<h3>
+{{template "data_pass" .}}
+</h3>
+
+</body>
+</html>

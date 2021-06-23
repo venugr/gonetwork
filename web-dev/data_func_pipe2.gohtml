@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>functions</title>
+</head>
+<body>
+
+{{ . | fdateMDY}}
+
+Without date formatting: {{.}}
+With date(MDY) formatting: {{ . | fdateMDY}}
+With date(DMY) formatting: {{ . | fdateDMY}}
+With date(DD-MMM-YYYY) formatting: {{ . | fdateDDMMYYYY}}
+
+
+</body>
+</html>
+
