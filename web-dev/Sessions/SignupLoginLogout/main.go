@@ -6,10 +6,13 @@ import (
 	"net/http"
 
 	uuid "github.com/satori/go.uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type user struct {
 	UserName string
+	Password []byte
+	Role     string
 }
 
 var dbRegSessions = map[string]string{}
@@ -28,6 +31,7 @@ func main() {
 	http.HandleFunc("/register", doRegister)
 	http.HandleFunc("/login", doLogin)
 	http.HandleFunc("/logout", doLogout)
+	http.HandleFunc("/play", doPlay)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 
 	http.ListenAndServe(":8080", nil)
@@ -41,12 +45,52 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 		RegOk    bool
 		LoginUid string
 		LoginOk  bool
+		Role     string
 	}{
-		rUid, rOk, lUid, lOk,
+		rUid, rOk, lUid, lOk, dbUser[lUid].Role,
 	}
-	fmt.Println(infoData)
+
+	ckVal, _, ok := getLoginCookie(r)
+
+	if ok {
+		cookie := &http.Cookie{
+			Name:   "loginid",
+			Value:  ckVal,
+			MaxAge: 60 * 3,
+		}
+		http.SetCookie(w, cookie)
+	}
+
+	// fmt.Println(infoData)
 	tpl.ExecuteTemplate(w, "info.gohtml", infoData)
 
+}
+
+func doPlay(w http.ResponseWriter, r *http.Request) {
+
+	rUid, lUid, rOk, lOk := getRegLoginDetails(r)
+	infoData := struct {
+		RegUid   string
+		RegOk    bool
+		LoginUid string
+		LoginOk  bool
+		Role     string
+	}{
+		rUid, rOk, lUid, lOk, dbUser[lUid].Role,
+	}
+
+	// fmt.Println(infoData)
+	if !lOk {
+		http.Error(w, "Not authorised to access this page...Register/Login", http.StatusForbidden)
+		return
+	}
+
+	if dbUser[lUid].Role != "007" {
+		http.Error(w, fmt.Sprintf("Insufficient role privlleges for '%v'", infoData.Role), http.StatusForbidden)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "play.gohtml", infoData)
 }
 
 func doLogout(w http.ResponseWriter, r *http.Request) {
@@ -58,8 +102,8 @@ func doLogout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cookie := &http.Cookie{
-		Name:  "loginid",
-		Value: "-1",
+		Name:   "loginid",
+		MaxAge: -1,
 	}
 
 	http.SetCookie(w, cookie)
@@ -79,16 +123,24 @@ func doLogin(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodPost {
 		userName := r.FormValue("username")
+		password := r.FormValue("password")
 
 		if !userExists(userName) {
 			http.Error(w, fmt.Sprintf("User '%v' is not registered, Pl register!", userName), http.StatusForbidden)
 			return
 		}
 
+		u := dbUser[userName]
+		if !passwordMatched(u, password) {
+			http.Error(w, "Username and/or password do not match", http.StatusForbidden)
+			return
+		}
+
 		uuid := uuid.NewV4()
 		cookie := &http.Cookie{
-			Name:  "loginid",
-			Value: uuid.String(),
+			Name:   "loginid",
+			Value:  uuid.String(),
+			MaxAge: 60 * 3,
 		}
 
 		http.SetCookie(w, cookie)
@@ -112,13 +164,21 @@ func doRegister(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodPost {
 		userName := r.FormValue("username")
+		password := r.FormValue("password")
+		role := r.FormValue("role")
 
 		if userExists(userName) {
 			http.Error(w, fmt.Sprintf("User '%v' already exists!", userName), http.StatusForbidden)
 			return
 		}
 
-		u := user{userName}
+		bs, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost)
+		if err != nil {
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		u := user{userName, bs, role}
 		dbRegSessions[userName] = userName
 		dbUser[userName] = u
 
@@ -132,6 +192,19 @@ func doRegister(w http.ResponseWriter, r *http.Request) {
 func userExists(userName string) bool {
 	_, ok := dbUser[userName]
 	return ok
+}
+
+func passwordMatched(u user, password string) bool {
+
+	err := bcrypt.CompareHashAndPassword(u.Password, []byte(password))
+	if err != nil {
+		// http.Error(w, "Username and/or password do not match", http.StatusForbidden)
+		// return
+
+		return false
+	}
+
+	return true
 }
 
 func getRegLoginDetails(r *http.Request) (string, string, bool, bool) {

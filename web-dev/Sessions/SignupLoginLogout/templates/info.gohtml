@@ -10,12 +10,17 @@
 <h2><a href="/register">Register</a></h2>
 {{end}}
 
-<h1>Login Id: {{.LoginUid}}</h1>
-
 {{if not .LoginUid}}
    <h2><a href="/login">Login</a></h2>
 {{else}}
-   <h2>User {{.LoginUid}} has logged in.</h2>
+   <h1>Login Id: {{.LoginUid}}</h1>
+   <h2>
+   User {{.LoginUid}} has logged in. 
+   {{if .Role}}
+      Role: {{.Role}}
+   {{end}}
+   </h2>
+   <h2><a href="/play">Play</a></h2>
    <h2><a href="/logout">Logout</a></h2>
 {{end}}
 

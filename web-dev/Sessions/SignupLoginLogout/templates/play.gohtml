@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play</title>
+</head>
+<body>
+
+
+{{if not .LoginUid}}
+   <h2><a href="/login">Login</a></h2>
+{{else}}
+   <h1>Login Id: {{.LoginUid}}</h1>
+   <h2>
+   Hello '{{.LoginUid}}' 
+   {{if .Role}}
+      , Your role is {{.Role}}<br>
+      Enjoy the play
+   {{end}}
+   </h2>
+   <h2><a href="/logout">Logout</a></h2>
+{{end}}
+
+<br>
+<h2>Go to <a href="/info">the info</a></h2>
+</body>
+</html>
