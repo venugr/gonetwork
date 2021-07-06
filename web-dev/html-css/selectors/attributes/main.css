@@ -1,0 +1,21 @@
+[contenteditable] {
+  color: red ;
+  border: 1px dashed blue;
+}
+
+[src] {
+  border: 10px dashed red ;
+}
+
+[href] {
+  border: 2px dashed green ;
+}
+
+body {
+    font-size: 36px;
+    text-align: center;
+}
+
+[target="_blank"] {
+    color: red;
+}

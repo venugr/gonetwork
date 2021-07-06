@@ -1,0 +1,13 @@
+/* * { margin: 50px;} */
+.emphasize {
+  color: red ;
+}
+
+.mycls {
+  color: blue ;
+  font-weight: bold;
+}
+
+#promote {
+  color: green;
+}
