@@ -1,0 +1,34 @@
+h1 {
+  font-family: 'Indie Flower', cursive, sans-serif  ;
+  font-size: 2rem ;
+}
+
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+}
+
+#one {
+    font-weight: 300;
+}
+
+#two {
+    font-weight: 400;
+}
+
+#three {
+    font-weight: 900;
+}
+
+#four {
+    font-weight: 200;
+    font-size: 1.5rem ;
+}
+
+mystyle {
+  display:block;
+  color:red;
+  font:12px tahoma, serif;
+  font-size: 1rem ;
+}

@@ -1,0 +1,60 @@
+h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    /* font-size: 16px ; */
+    /* font-size: 6vw; */
+
+    /* font-weight: 600; */
+
+    font-style: italic;
+
+    font-weight: normal;
+    font-variant: small-caps;
+    /* text-transform: uppercase;
+    text-transform: lowercase;
+    text-transform: capitalize; */
+
+    border: 1px dashed hotpink ;
+    /* line-height: .7 ; */
+    line-height: 2 ;
+    color: red ;
+}
+
+#kern {
+    letter-spacing: 1rem;
+    color: green ;
+}
+
+#wsp {
+  word-spacing: 2rem;
+  color: firebrick ;
+}
+
+
+p{
+    border: 5px solid green;
+    line-height: 2;
+    /* formatting*/
+    width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+
+span {
+    border: 1px solid black ;
+}
+
+
+div {
+    width: 400px;
+    height: 400px;
+    line-height: 400px;
+    text-align: center;
+    border: 1px solid black;
+
+    color: blue ;
+    background-color: #adf7f7 ;
+    font-weight: bold;
+    margin: 0 auto;
+}

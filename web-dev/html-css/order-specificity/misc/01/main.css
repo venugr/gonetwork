@@ -1,0 +1,26 @@
+p {
+  color: yellow ;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#id1 {
+  color: red;
+}
+
+.cl1 {
+  border: 1px solid black ;
+  border-radius: 100% ;
+  display: block;
+}
+
+p::first-letter {
+  font-size: 32px ;
+  color: blue ;
+}
+
+p::first-line {
+  color: green ;
+  font-size: 20px ;
+}

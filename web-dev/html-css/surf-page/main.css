@@ -1,0 +1,26 @@
+html {
+  background-color: #00539F;
+}
+
+
+body {
+  width: 60%;
+  background-color: #00C957 ;
+  margin: 0 auto;
+  border: 5px solid black;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 100%;
+  border: 10px ridge gold ;
+}
+
+#prim1 {
+  color: #0266C8 ;
+}
+
+#secd2 {
+  color: #F90101 ;
+}

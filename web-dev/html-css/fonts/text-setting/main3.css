@@ -1,0 +1,27 @@
+html {
+    font-size: 3rem;
+}
+
+p {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+#id1 {
+    color: lawngreen;
+
+    text-decoration: line-through underline overline;
+
+    /* these didn't work for me*/
+    /*text-decoration-line: underline;*/
+    /*text-decoration-color: darkgreen;*/
+    /*text-decoration-style: wavy;*/
+}
+
+div {
+    text-decoration: line-through;
+}

@@ -1,0 +1,22 @@
+h1 {
+  color: blue ;
+  border: 1px solid black ;
+  font-style: italic;
+  /* font-size: 30px ; */
+}
+
+/* #emph {
+  color: green ;
+} */
+
+.c2 {
+  color: yellow ;
+}
+
+.c1 {
+  color: red ;
+}
+
+.c3 {
+  color: #AA9922 ;
+}

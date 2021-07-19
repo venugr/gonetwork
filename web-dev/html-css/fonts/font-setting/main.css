@@ -1,0 +1,26 @@
+h1 {
+  font-family: sans-serif;
+  font-size: 25px ;
+  /* font-family: serif; */
+}
+
+h1 {
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: "Bitstream Vera Sans Mono", sans-serif;
+}
+
+
+#id1 {
+  font-family: serif;
+  font-size: 22px ;
+}
+
+#id2 {
+  font-family: sans-serif;
+  font-size: 22px ;
+}
+
+#id-serif{
+  font-family: serif;
+  font-size: 25px ;
+}
